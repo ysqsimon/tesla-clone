@@ -1,47 +1,10 @@
-<script setup>
-const rightMenu = [
-  {
-    name: "Shop",
-    href: "#",
-  },
-  {
-    name: "Account",
-    href: "#",
-  },
-];
-
-const centerMenu = [
-  {
-    name: "Model S",
-    href: "#Model-S",
-  },
-  {
-    name: "Model 3",
-    href: "#Model-3",
-  },
-  {
-    name: "Model X",
-    href: "#Model-X",
-  },
-  {
-    name: "Model Y",
-    href: "#Model-Y",
-  },
-  {
-    name: "Solar Roof",
-    href: "#Solar-Roof",
-  },
-  {
-    name: "Solar Panels",
-    href: "#Solar-Panels",
-  },
-];
-</script>
-
 <template>
   <div class="fixed top-0 z-20 w-screen">
-    <div class="flex justify-between items-center pt-5">
-      <a class="flex-1 ml-8 lg:ml-12" href="#" aria-label="Tesla Homepage">
+    <div
+      class="flex justify-between items-center pt-5"
+      :class="route.path === '/miniEV' ? 'text-white' : ''"
+    >
+      <a class="flex-1 ml-8 lg:ml-12" href="/" aria-label="Tesla Homepage">
         <svg
           class="w-32"
           viewBox="0 0 342 35"
@@ -56,11 +19,11 @@ const centerMenu = [
       <div class="grow">
         <ul class="flex-row justify-center flex font-Gotham text-sm">
           <li
-            v-for="item in centerMenu"
+            v-for="item in menu"
             :key="item.name"
             class="mr-8 lg:block hidden select-none rounded"
           >
-            <a :href="item.href">{{ item.name }}</a>
+            <router-link :to="item.href">{{ item.name }}</router-link>
           </li>
         </ul>
       </div>
@@ -71,14 +34,43 @@ const centerMenu = [
             :key="item.name"
             class="mr-8 lg:block hidden select-none"
           >
-            <a :href="item.href">{{ item.name }}</a>
+            <router-link :to="item.href">{{ item.name }}</router-link>
           </li>
-          <li class="mr-8 select-none" href="#"><a href="#">Menu</a></li>
+          <li
+            class="lg:hidden block mr-8 select-none"
+            href="#"
+            @click.stop="drawerOpen = !drawerOpen"
+          >
+            <a>Menu</a>
+          </li>
         </ul>
       </div>
     </div>
   </div>
+  <v-layout>
+    <v-navigation-drawer
+      v-model="drawerOpen"
+      location="right"
+    ></v-navigation-drawer>
+  </v-layout>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import { useGlobalStore } from "@/store/global";
+import { useRoute } from "vue-router";
+const globalStore = useGlobalStore();
+const menu = globalStore.textData.menu.map((item) => {
+  return {
+    ...item,
+    name: item.name[globalStore.locale],
+  };
+});
+
+const route = useRoute();
+
+const drawerOpen = ref(false);
+</script>
 
 <style scoped>
 li {

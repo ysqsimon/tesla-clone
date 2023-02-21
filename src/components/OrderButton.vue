@@ -1,3 +1,11 @@
+<template>
+  <div
+    :class="`text-center w-64 py-[10px] rounded-md font-Gotham text-sm font-bold ${backColor} ${foreColor} cursor-pointer select-none`"
+  >
+    <slot></slot>
+  </div>
+</template>
+
 <script setup>
 import { ref } from "vue";
 
@@ -19,11 +27,3 @@ if (props.Theme == "Black") {
   backColor.value = "bg-neutral-700";
 }
 </script>
-
-<template>
-  <div
-    :class="`text-center w-64 py-[10px] rounded-md font-Gotham text-sm font-bold ${backColor} ${foreColor} cursor-pointer select-none`"
-  >
-    <a>{{ text }}</a>
-  </div>
-</template>

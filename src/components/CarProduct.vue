@@ -8,9 +8,7 @@
         <h1 class="m-auto font-Gotham font-bold text-[40px] select-none">
           {{ title }}
         </h1>
-        <a :href="Href" :class="`m-auto text-md select-none ${isLink}`">{{
-          subtitle
-        }}</a>
+        <a :class="`m-auto text-md select-none ${isLink}`">{{ subtitle }}</a>
       </div>
     </div>
     <div class="absolute bottom-28 w-full">
@@ -23,44 +21,20 @@
             :enter="{ opacity: 1, x: 0, transition: { duration: 500 } }"
             :delay="500"
           >
-            <ProductButton :text="Button1Text" theme="Black" />
-          </div>
-          <div
-            :initial="{ opacity: 0, x: 100 }"
-            :enter="{ opacity: 1, x: 0, transition: { duration: 500 } }"
-            :delay="500"
-          >
-            <ProductButton :text="Button2Text" />
-          </div>
-        </div>
-      </div>
-      <div v-else>
-        <div class="flex m-auto gap-8 justify-center">
-          <div
-            :initial="{ opacity: 0, x: 100 }"
-            :enter="{ opacity: 1, x: 0, transition: { duration: 500 } }"
-            :delay="500"
-          >
-            <ProductButton text="Shop Now" theme="Black" />
+            <order-button theme="Black">{{ OrderBtnText }}</order-button>
           </div>
         </div>
       </div>
     </div>
     <img
-      quality="80"
       :alt="props.Title"
       :src="DesktopImg"
-      draggable="false"
       class="md:block hidden object-cover w-screen h-full select-none"
-      format="webp"
     />
     <img
-      quality="80"
       :alt="props.Title"
       :src="MobileImg"
-      draggable="false"
       class="md:hidden block object-cover w-screen h-full select-none"
-      format="webp"
     />
   </div>
 </template>
@@ -68,9 +42,10 @@
 <script setup>
 import { ref } from "vue";
 import { useMotion } from "@vueuse/motion";
+import { useGlobalStore } from "@/store/global.js";
+import textData from "@/data";
 
-import ProductButton from "./ProductButton.vue";
-
+const globalStore = useGlobalStore();
 const props = defineProps({
   title: {
     type: String,
@@ -116,10 +91,5 @@ useMotion(TitleAnimation, {
   },
 });
 
-const Button1Text = ref("Buy Now");
-const Button2Text = ref("Custom Order");
-if (!props.Title?.includes("Model")) {
-  Button1Text.value = "Order Now";
-  Button2Text.value = "Learn More";
-}
+const OrderBtnText = ref(textData.orderBtn[globalStore.locale]);
 </script>

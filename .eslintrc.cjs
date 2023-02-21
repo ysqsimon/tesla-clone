@@ -4,15 +4,20 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  plugins: ["prettier"],
-  extends: ["eslint:recommended", "plugin:vue/vue3-recommended", "prettier"],
+  extends: [
+    "plugin:vue/vue3-recommended",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+  ],
   parserOptions: {
     ecmaVersion: 13,
     sourceType: "module",
   },
   rules: {
     // override/add rules settings here, such as:
-    // 'vue/no-unused-vars': 'error'
-    "prettier/prettier": "error",
+    "no-unused-vars": 1,
+    "vue/no-unused-vars": 1,
+    "vue/multi-word-component-names": 0,
+    "prettier/prettier": 1,
   },
 };
