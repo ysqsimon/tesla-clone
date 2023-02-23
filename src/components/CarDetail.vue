@@ -47,9 +47,9 @@
     />
   </div>
   <div
-    class="snap-start relative section-container"
     v-for="section in sections"
     :key="section.name"
+    class="snap-start relative section-container"
   >
     <div class="relative h-2/3 select-none">
       <img
@@ -131,12 +131,10 @@ const sections = [
 ];
 
 const getImgUrl = (imgName) => {
-  console.log(new URL(`/src/assets/img/${imgName}.jpg`, import.meta.url).href);
   return new URL(`/src/assets/img/${imgName}.jpg`, import.meta.url).href;
 };
 
 const order = () => {
-  console.log("order");
   emit("order");
 };
 </script>

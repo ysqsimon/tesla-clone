@@ -5,8 +5,9 @@ import App from "./App.vue";
 import router from "./router";
 import { MotionPlugin } from "@vueuse/motion";
 // Vuetify
-import "vuetify/styles";
 import { createVuetify } from "vuetify";
+import "@mdi/font/css/materialdesignicons.css";
+import "vuetify/styles";
 
 import OrderButton from "@/components/OrderButton.vue";
 import OrderButton2 from "@/components/OrderButton2.vue";

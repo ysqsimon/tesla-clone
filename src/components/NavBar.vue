@@ -30,13 +30,6 @@
       <div class="flex-1">
         <ul class="flex-row justify-end flex font-Gotham text-sm">
           <li
-            v-for="item in rightMenu"
-            :key="item.name"
-            class="mr-8 lg:block hidden select-none"
-          >
-            <router-link :to="item.href">{{ item.name }}</router-link>
-          </li>
-          <li
             class="lg:hidden block mr-8 select-none"
             href="#"
             @click.stop="drawerOpen = !drawerOpen"
@@ -48,17 +41,37 @@
     </div>
   </div>
   <v-layout>
-    <v-navigation-drawer
-      v-model="drawerOpen"
-      location="right"
-    ></v-navigation-drawer>
+    <v-navigation-drawer v-model="drawerOpen" class="relative" location="right">
+      <div class="absolute top-5 right-5">
+        <v-icon
+          icon="mdi-window-close"
+          class="cursor-pointer"
+          @click="drawerOpen = !drawerOpen"
+        ></v-icon>
+      </div>
+      <v-list class="mt-10">
+        <v-list-item
+          v-for="item in menu"
+          :key="item.name"
+          :value="item.name"
+          :ripple="false"
+          @click="() => redirect(item.href)"
+        >
+          <template #title>
+            <div class="text-black cursor-pointer rounded-sm">
+              {{ item.name }}
+            </div>
+          </template>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
   </v-layout>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useGlobalStore } from "@/store/global";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 const globalStore = useGlobalStore();
 const menu = globalStore.textData.menu.map((item) => {
   return {
@@ -68,8 +81,15 @@ const menu = globalStore.textData.menu.map((item) => {
 });
 
 const route = useRoute();
+const router = useRouter();
 
 const drawerOpen = ref(false);
+
+const redirect = (href) => {
+  router.push({
+    path: href,
+  });
+};
 </script>
 
 <style scoped>

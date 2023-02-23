@@ -6,6 +6,11 @@ export const useGlobalStore = defineStore("global", {
     locale: "ch",
     textData: data,
   }),
+  getters: {
+    getImgUrl: (state) => (imgName) => {
+      return new URL(`/src/assets/img/${imgName}.jpg`, import.meta.url).href;
+    },
+  },
   actions: {
     setLocale() {
       this.locale = "en";

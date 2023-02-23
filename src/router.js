@@ -21,6 +21,14 @@ export default createRouter({
         },
       ],
     },
+    {
+      path: "/modifieds",
+      redirect: "/modifieds/modelY",
+    },
+    {
+      path: "/modifieds/:type",
+      component: () => import("@/views/modifieds.vue"),
+    },
     { path: "/:pathMatch(.*)*" },
   ],
   //   scrollBehavior: function (to, from, savedPosition) {

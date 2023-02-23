@@ -2,10 +2,10 @@
   <swiper
     :modules="modules"
     navigation
-    @swiper="onSwiper"
-    @slideChange="onSlideChange"
     class="text-white h-full"
     :pagination="{ type: 'fraction' }"
+    @swiper="onSwiper"
+    @slideChange="onSlideChange"
   >
     <swiper-slide v-for="item in imgs" :key="item.name" class="object-cover">
       <img
@@ -39,7 +39,7 @@ const props = defineProps({
 
 const onSwiper = (swiper) => {};
 const onSlideChange = () => {
-  console.log("slide change");
+  // console.log("slide change");
 };
 const modules = [Navigation, Pagination];
 </script>
