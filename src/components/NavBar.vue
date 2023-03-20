@@ -40,8 +40,12 @@
       </div>
     </div>
   </div>
-  <v-layout>
-    <v-navigation-drawer v-model="drawerOpen" class="relative" location="right">
+  <v-layout class="h-full">
+    <v-navigation-drawer
+      v-model="drawerOpen"
+      class="relative h-full"
+      location="right"
+    >
       <div class="absolute top-5 right-5">
         <v-icon
           icon="mdi-window-close"

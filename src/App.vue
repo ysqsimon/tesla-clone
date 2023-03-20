@@ -7,7 +7,6 @@
 import Navbar from "./components/NavBar.vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
-console.log(route.path, route.params);
 </script>
 
 <style scoped></style>

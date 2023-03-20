@@ -1,9 +1,9 @@
 <template>
-  <div class="w-screen h-screen flex-col lg:flex-row bg-white">
+  <div class="w-screen h-screen flex flex-col lg:flex-row bg-white">
     <div class="w-full lg:h-screen lg:w-2/3">
-      <swiper :imgs="imgs"></swiper>
+      <swiper class="text-white h-full" :imgs="imgs"></swiper>
     </div>
-    <div class="w-full lg:w-1/3 bg-white h-[100px]"></div>
+    <div class="w-full lg:w-1/3 bg-white h-[100px]">ssss</div>
   </div>
 </template>
 <script setup>

@@ -2,7 +2,6 @@
   <swiper
     :modules="modules"
     navigation
-    class="text-white h-full"
     :pagination="{ type: 'fraction' }"
     @swiper="onSwiper"
     @slideChange="onSlideChange"

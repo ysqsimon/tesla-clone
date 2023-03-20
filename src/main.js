@@ -8,7 +8,7 @@ import { MotionPlugin } from "@vueuse/motion";
 import { createVuetify } from "vuetify";
 import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
-
+import { redirect } from "@/directives/router";
 import OrderButton from "@/components/OrderButton.vue";
 import OrderButton2 from "@/components/OrderButton2.vue";
 import Swiper from "@/components/Swiper.vue";
@@ -37,7 +37,7 @@ app.use(MotionPlugin, {
   },
 });
 app.use(vuetify);
-
+app.directive("redirect", redirect);
 app.component("OrderButton", OrderButton);
 app.component("OrderButton2", OrderButton2);
 app.component("Swiper", Swiper);

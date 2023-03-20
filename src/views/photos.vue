@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-screen overflow-y-scroll scroll-smooth">
+  <div class="h-screen w-screen bg-white overflow-y-scroll scroll-smooth">
     <div class="min-h-[200px] h-[50vh] md:h-[65vh] relative">
       <img
         class="w-screen h-full object-cover"
@@ -20,56 +20,38 @@
         <v-tabs v-model="currentTab" align-tabs="center">
           <v-tab
             v-for="tab in tabs"
-            :key="tab.href"
-            class="hover:text-white"
+            :key="tab.key"
+            class="text-white hover:text-white"
             :ripple="false"
-            :value="tab.href"
-            @click="() => redirect(tab.href)"
-            >{{ tab.type }}</v-tab
+            :value="tab.key"
+            @click="() => redirect(tab.key)"
+            >{{ tab.tab }}</v-tab
           >
         </v-tabs>
       </div>
     </div>
-    <div class="w-screen px-5 py-10 grid grid-cols-2 lg:grid-cols-4 gap-5">
+    <div
+      class="w-screen px-5 py-10 gap-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+    >
       <div
-        v-for="item in shopMenu"
+        v-for="(item, index) in currentTabData.album"
         :key="item.title"
-        v-redirect="{
-          path: `shop/${currentTabData.href}`,
-          query: {
-            category: item.title,
-          },
-        }"
-        class="menu-container relative overflow-hidden"
-        :class="`${
-          currentTabData.available.some((el) => el.name === item.title)
-            ? 'cursor-pointer'
-            : 'disabled'
-        }`"
+        class="menu-container relative overflow-hidden cursor-pointer text-white"
+        @click="() => redirectToPhotoDetail(item)"
       >
         <div
           class="absolute z-[1] w-full h-full bg-gradient-to-t from-stone-900"
         ></div>
         <img
           class="menu-img w-full h-full object-cover transition-all duration-300"
-          :class="
-            currentTabData.available.some((el) => el.name === item.title)
-              ? 'opacity-100 hover:scale-125 cursor-pointer'
-              : 'opacity-70 grayscale disabled'
-          "
-          :src="globalStore.getImgUrl(item.img)"
+          :src="globalStore.getImgUrlFrom(item.img, 'photos')"
         />
         <div class="absolute z-[1] left-1 bottom-1">
           <div class="text-[12px]">
-            {{ item.subtitle }}
+            {{ dayjs().format("DD MMM YYYY") }}
           </div>
           <div
             class="menu-title transition-all duration-500 text-lg font-bold leading-none"
-            :class="
-              currentTabData.available.some((el) => el.name === item.title)
-                ? ''
-                : 'disabled'
-            "
           >
             {{ item.title }}
           </div>
@@ -80,6 +62,7 @@
 </template>
 <script setup>
 import { ref, computed } from "vue";
+import dayjs from "dayjs";
 import { useGlobalStore } from "@/store/global";
 import { useRoute, useRouter } from "vue-router";
 
@@ -87,27 +70,32 @@ const route = useRoute();
 const router = useRouter();
 const globalStore = useGlobalStore();
 
-const tabs = globalStore.textData.modifieds.carTypes;
-const shopMenu = globalStore.textData.modifieds.shopMenu;
-const currentTab = ref(route.params.type);
+const tabs = globalStore.textData.photos;
+const currentTab = ref(route.params.carType);
 
 const currentTabData = computed(() => {
-  return tabs.find((tab) => tab.href === currentTab.value);
+  return tabs.find((tab) => tab.key === currentTab.value) || {};
 });
 
 const redirect = (href) => {
   currentTab.value = href;
-  router.push(`/modifieds/${href}`);
+  router.push(`/photos/${href}`);
+};
+
+const redirectToPhotoDetail = (item) => {
+  router.push(`/photos/${route.params.carType}/${item.title}`);
 };
 </script>
+
 <style lang="scss" scoped>
 .menu-container {
-  &:hover :not(.disabled) {
-    &.menu-img {
+  .menu-img {
+    filter: brightness(0.9);
+  }
+  &:hover {
+    .menu-img {
       transform: scale(1.1);
-    }
-    &.menu-title {
-      color: rgb(59 130 246);
+      filter: brightness(1.1);
     }
   }
 }

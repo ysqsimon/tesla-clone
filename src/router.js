@@ -29,6 +29,30 @@ export default createRouter({
       path: "/modifieds/:type",
       component: () => import("@/views/modifieds.vue"),
     },
+    {
+      path: "/modifieds/shop/:type",
+      component: () => import("@/views/modifiedsShop.vue"),
+    },
+    {
+      path: "/product/:carType/:productName",
+      component: () => import("@/views/product.vue"),
+    },
+    {
+      path: "/photos",
+      redirect: "/photos/modelY",
+    },
+    {
+      path: "/photos/:carType/:photoName",
+      component: () => import("@/views/photoDetail.vue"),
+    },
+    {
+      path: "/photos/:carType",
+      component: () => import("@/views/photos.vue"),
+    },
+    {
+      path: "/about",
+      component: () => import("@/views/aboutUs.vue"),
+    },
     { path: "/:pathMatch(.*)*" },
   ],
   //   scrollBehavior: function (to, from, savedPosition) {
