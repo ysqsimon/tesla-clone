@@ -30,6 +30,10 @@ export default createRouter({
       component: () => import("@/views/modifieds.vue"),
     },
     {
+      path: "/modifieds/shop",
+      redirect: "/modifieds/shop/modelY",
+    },
+    {
       path: "/modifieds/shop/:type",
       component: () => import("@/views/modifiedsShop.vue"),
     },

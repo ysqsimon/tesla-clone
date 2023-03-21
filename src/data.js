@@ -14,7 +14,7 @@ export default {
       name: {
         ch: "合创Valut",
       },
-      href: "/valut",
+      href: "/miniEV",
     },
     {
       name: {
@@ -26,7 +26,7 @@ export default {
       name: {
         ch: "周边",
       },
-      href: "/",
+      href: "/modifieds/shop",
     },
     {
       name: {
