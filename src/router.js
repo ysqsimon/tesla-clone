@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/home.vue";
 
 export default createRouter({
-  base: "/tesla-clone/",
-  history: createWebHistory(),
+  history: createWebHistory("/tesla-clone/"),
   routes: [
     {
       path: "/",
